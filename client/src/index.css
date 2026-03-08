@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Fallback for Geist if local fonts aren't available, but using Inter as primary sans */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        background-color: #000000;
+    }
+
+    body {
+        @apply font-sans antialiased text-[#fafafa] bg-black selection:bg-white/20 selection:text-white;
+    }
+}
+
+@layer utilities {
+    .glass-panel {
+        @apply bg-[#09090b] border border-[#27272a] rounded-xl shadow-lg;
+    }
+
+    .btn-primary {
+        @apply bg-white text-black font-semibold rounded-full px-6 py-2.5 hover:bg-zinc-200 hover:scale-[1.04] active:scale-[0.96] transition-all duration-200 shadow-[0_0_15px_#ffffff1a] cursor-pointer select-none;
+    }
+
+    .btn-secondary {
+        @apply bg-[#09090b] border border-[#27272a] text-white hover:bg-[#18181b] hover:border-zinc-600 hover:scale-[1.04] active:scale-[0.96] font-medium rounded-full px-6 py-2.5 transition-all duration-200 cursor-pointer select-none;
+    }
+}
+
+
+/* Minimal Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-black;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-zinc-800 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-600;
+}

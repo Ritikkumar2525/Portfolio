@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <title>Ritik Kumar | Full Stack MERN Developer</title>
+    <meta name="description" content="Portfolio of Ritik Kumar, a Full Stack MERN Developer building scalable web applications and modern digital experiences." />
+    <meta name="keywords" content="Ritik Kumar, Portfolio, MERN Stack, Developer, React, Node.js, Web Development" />
+    <meta name="author" content="Ritik Kumar" />
+    
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="Ritik Kumar | Developer Portfolio" />
+    <meta property="og:description" content="I build scalable web applications and modern digital experiences." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ritikkumar.dev" />
+    
+  </head>
+  <body class="selection:bg-blue-500/30">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Custom Cursor Script (Optional native JS for lowest overhead) -->
+    <div id="custom-cursor" class="fixed w-6 h-6 border-2 border-blue-500 rounded-full pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 hidden md:block mix-blend-difference"></div>
+    <div id="custom-cursor-dot" class="fixed w-2 h-2 bg-purple-500 rounded-full pointer-events-none z-[100] transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-0 hidden md:block"></div>
+    
+    <script>
+      const cursor = document.getElementById('custom-cursor');
+      const dot = document.getElementById('custom-cursor-dot');
+      
+      document.addEventListener('mousemove', (e) => {
+        if(window.innerWidth > 768) {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+          dot.style.left = e.clientX + 'px';
+          dot.style.top = e.clientY + 'px';
+        }
+      });
+
+      document.addEventListener('mousedown', () => cursor.classList.add('scale-75'));
+      document.addEventListener('mouseup', () => cursor.classList.remove('scale-75'));
+    </script>
+  </body>
+</html>

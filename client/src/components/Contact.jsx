@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedinIn, FaTwitter, FaEnvelope, FaPhone } from 'react-icons/fa';
 import axios from 'axios';
 
+const API = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+
 const QUICK_LINKS = [
     { icon: <FaGithub size={18} />, href: 'https://github.com/Ritikkumar2525', label: 'GitHub' },
     { icon: <FaLinkedinIn size={18} />, href: 'https://www.linkedin.com/in/ritik25/', label: 'LinkedIn' },
@@ -26,7 +28,7 @@ const Contact = () => {
         setStatus({ type: '', message: '' });
 
         try {
-            const res = await axios.post('http://localhost:5001/api/contact', formData);
+            const res = await axios.post(`${API}/api/contact`, formData);
             if (res.data.success) {
                 setStatus({ type: 'success', message: 'Message sent successfully.' });
                 setFormData({ name: '', email: '', message: '' });

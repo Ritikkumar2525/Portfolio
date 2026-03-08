@@ -15,7 +15,17 @@ app.use(helmet({
     crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like curl), any localhost, or the production frontend
+        if (!origin ||
+            /^http:\/\/localhost(:\d+)?$/.test(origin) ||
+            /\.onrender\.com$/.test(origin) ||
+            /\.vercel\.app$/.test(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST'],
 }));
 app.use(express.json());

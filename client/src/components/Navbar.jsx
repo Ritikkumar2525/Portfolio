@@ -16,9 +16,11 @@ const navLinks = [
     { name: 'Contact', href: '#contact' },
 ];
 
+const API = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+
 // Silent background ping — visitor never sees this
 const pingResumeDownload = () => {
-    fetch('http://localhost:5001/api/resume/notify', {
+    fetch(`${API}/api/resume/notify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     }).catch(() => { }); // fail silently

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedinIn, FaTwitter, FaEnvelope, FaPhone } from 'react-icons/fa';
-import axios from 'axios';
-
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+import emailjs from '@emailjs/browser';
 
 const QUICK_LINKS = [
     { icon: <FaGithub size={18} />, href: 'https://github.com/Ritikkumar2525', label: 'GitHub' },
@@ -28,15 +26,25 @@ const Contact = () => {
         setStatus({ type: '', message: '' });
 
         try {
-            const res = await axios.post(`${API}/api/contact`, formData);
-            if (res.data.success) {
-                setStatus({ type: 'success', message: 'Message sent successfully.' });
-                setFormData({ name: '', email: '', message: '' });
-            }
+            await emailjs.send(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                {
+                    from_name: formData.name,
+                    from_email: formData.email,
+                    message: formData.message,
+                    to_name: 'Ritik',
+                },
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            );
+
+            setStatus({ type: 'success', message: 'Message sent successfully.' });
+            setFormData({ name: '', email: '', message: '' });
         } catch (error) {
+            console.error('EmailJS error:', error);
             setStatus({
                 type: 'error',
-                message: error.response?.data?.message || 'Something went wrong.'
+                message: 'Something went wrong. Please email me directly.'
             });
         } finally {
             setIsLoading(false);

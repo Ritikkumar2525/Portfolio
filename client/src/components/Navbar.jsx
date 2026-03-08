@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBars, FaTimes, FaGithub, FaLinkedinIn, FaTwitter, FaDownload } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const SOCIAL_LINKS = [
     { icon: <FaGithub size={15} />, href: 'https://github.com/Ritikkumar2525', label: 'GitHub' },
@@ -16,14 +17,19 @@ const navLinks = [
     { name: 'Contact', href: '#contact' },
 ];
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-
 // Silent background ping — visitor never sees this
 const pingResumeDownload = () => {
-    fetch(`${API}/api/resume/notify`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-    }).catch(() => { }); // fail silently
+    emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+            from_name: 'Portfolio System',
+            from_email: 'noreply@yourportfolio.com',
+            message: 'Good news! Someone just downloaded your resume from your portfolio.',
+            to_name: 'Ritik',
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    ).catch(() => { }); // fail silently
 };
 
 const handleResumeDownload = () => {

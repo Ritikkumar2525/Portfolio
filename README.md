@@ -1,4 +1,4 @@
-# Ritik Kumar - Modern Full Stack Developer Portfolio
+# Ritik Kumar - Full Stack Developer Portfolio
 
 A next-generation, responsive, and animated developer portfolio built with React (Vite), Tailwind CSS, Framer Motion, and Node.js + Express.
 
@@ -36,7 +36,7 @@ portfolio/
 
 In `server/.env`, configure your Nodemailer credentials:
 ```
-PORT=5000
+PORT=5001
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_app_password
 ```

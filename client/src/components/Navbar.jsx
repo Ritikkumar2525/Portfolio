@@ -27,9 +27,9 @@ const pingResumeDownload = () => {
 };
 
 const handleResumeDownload = () => {
-    // 1. Trigger the file download
+    // 1. Trigger the file download pointing directly to the named PDF
     const link = document.createElement('a');
-    link.href = '/resume.pdf';
+    link.href = '/Ritik_Kumar_Resume.pdf';
     link.download = 'Ritik_Kumar_Resume.pdf';
     document.body.appendChild(link);
     link.click();

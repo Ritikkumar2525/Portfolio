@@ -39,6 +39,27 @@ app.get('/', (req, res) => {
     res.send('Portfolio API is running...');
 });
 
+// Debug route to test email configuration on Render
+import nodemailer from 'nodemailer';
+app.get('/api/test-email', async (req, res) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+            connectionTimeout: 10000,
+        });
+        await transporter.verify();
+        res.json({ success: true, message: 'SMTP connection successful! Credentials are correct.' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message, stack: error.stack });
+    }
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

@@ -16,13 +16,22 @@ export const sendContactEmail = async (req, res) => {
         });
     }
 
+    // Respond immediately so the visitor doesn't wait for email delivery
+    res.status(200).json({ success: true, message: "Message sent! I'll get back to you soon." });
+
+    // Send email in the background
     try {
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
             },
+            connectionTimeout: 10000,
+            greetingTimeout: 10000,
+            socketTimeout: 15000,
         });
 
         const mailOptions = {
@@ -42,12 +51,9 @@ export const sendContactEmail = async (req, res) => {
         };
 
         await transporter.sendMail(mailOptions);
-        res.status(200).json({ success: true, message: "Message sent! I'll get back to you soon." });
+        console.log('[Contact] email sent successfully');
     } catch (error) {
-        console.error('Email send error:', error.message);
-        res.status(500).json({
-            success: false,
-            message: 'Failed to send. Please email me at ritikrajkeshari0@gmail.com'
-        });
+        console.error('[Contact] email send error:', error.message);
     }
 };
+
